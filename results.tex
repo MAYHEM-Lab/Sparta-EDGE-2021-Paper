@@ -1,4 +1,4 @@
-In this section, we empirically evaluate Sparta's performance in a series of experiments on six benchmarks, ranging from image recognition, natural language processing to random forest and time series prediction. We implemented applications based on Tensorflow and executed through Sparta's actuator interface.  In each experiment, Sparta takes inputs of task program, workload dataset and threshold temperature. There are two goals of scheduling by Sparta: the first is to limit the CPU temperature under the threshold; secondly, Sparta accelerates the task to the fullest extent without overheating the edge cloud devices.
+In this section, we empirically evaluate Sparta's performance in a series of experiments on six benchmarks, ranging from image recognition, natural language processing to random forest and time series prediction, which are implemented based on Tensorflow and executed through Sparta's actuator interface. We first overview the machine learning benchmarks that we consider and our experimental methodology. We then present our results.
 
 \subsection{Machine Learning Benchmarks}
 
@@ -30,7 +30,7 @@ Based on WTB\_Train, we inference the type of wildlife in camera trap pictures b
 
 \subsection{Experimental Setup}
 
-The edge cloud device we set up for experiments is Intel NUC~\cite{ref:nuc} (6i7KYK) with two Intel Core i7-6770HQ 4-core processors (6M Cache, 2.60 GHz) and 32GB of DDR4-2133+ RAM connected via two channels.  
+The edge cloud device we set up for experiments is Intel NUC~\cite{ref:nuc} (6i7KYK) with two Intel Core i7-6770HQ 4-core processors (6M Cache, 2.60 GHz) and 32GB of DDR4-2133+ RAM connected via two channels. The DVFS tunes the frequency of CPU from 0.8GHz to 3.5GHz.
 
 To simulate the natural temperature in Sedgwick natural reserve, we create three thermal environments in an isolated cooler that represent cold, neutral and hot ambient temperature. In the cold scenario, the ambient temperature is 2.6\degree C and the CPU of NUC runs under 40\degree C in idle status. In the neutral scenario, the CPU of NUC starts at 51\degree C under the ambient temperature of 23.9\degree C. The hot scenario increases the ambient and CPU temperature to 43.8\degree C and 68\degree C respectively.
 
@@ -39,5 +39,93 @@ To simulate the natural temperature in Sedgwick natural reserve, we create three
 \caption{Three thermal environments in the experiment} \label{cold}
 \end{figure}
 
-\subsection{}
- 
+There are two goals of scheduling by Sparta: the first is to limit the CPU temperature under the threshold; secondly, Sparta accelerates the task to the fullest extent without overheating the edge cloud devices. To validate these two objectives, we execute 6 machine learning benchmarks under 3 modes of Sparta scheduler. In each experiment, Sparta takes inputs of task program, corresponding workload dataset and a threshold temperature. To keep the comparison consistent across 3 thermal environments, we use 75\degree C as the threshold temperature for all experiments.
+
+In 3 modes of Sparta, we execute each machine learning benchmark 10 times under 3 thermal environments and report relevant metrics, both mean and standard deviation, to compare the efficacy and efficiency among Annealing, AIMD and Hybrid modes.
+
+
+\subsection{Application Efficacy}
+
+We first evaluate the stabilization time in 6 benchmarks. 
+
+%Stabilization table
+
+\begin{table}[h!]
+\caption{The mean and stdev of \textbf{stabilization time} in seconds for 6 machine learning benchmarks in 3 modes of Sparta. Compared to Annealing and AIMD, Hybrid mode uses less time to stabilize CPU temperature across all benchmarks. }\label{tab:stab}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/stab}}
+\end{table}
+
+%Stabilization thermal table
+
+\begin{table}[h!]
+\caption{The mean \textbf{stabilization time} in seconds in 3 thermal scenarios. Compared to Annealing and AIMD, Hybrid mode uses less time to stabilize CPU temperature across 3 thermal environments.  }\label{tab:stab_th}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/stab_th}}
+\end{table}
+
+
+%Runtime table
+
+\begin{table}[h!]
+\caption{The mean and stdev of \textbf{execution time} in seconds for 6 machine learning benchmarks in 3 modes of Sparta. Compared to Annealing and AIMD, Hybrid mode uses less time to complete tasks across all benchmarks. }\label{tab:runtime}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/runtime}}
+\end{table}
+
+%Runtime thermal table
+
+\begin{table}[h!]
+\caption{The mean \textbf{execution time} in seconds in 3 thermal scenarios. Compared to Annealing and AIMD, Hybrid mode uses less time to complete tasks across 3 thermal environments.  }\label{tab:runtime_th}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/runtime_th}}
+\end{table}
+
+
+
+
+%Speed-up table
+
+\begin{table}[h!]
+\caption{The \textbf{speedup} provided by Hybrid over Annealing and AIMD modes, ranging from 1.04x to 1.32x.  }\label{tab:speed}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/speed}}
+\end{table}
+
+%Speed-up thermal table
+
+\begin{table}[h!]
+\caption{The \textbf{speedup} provided by Hybrid modes in 3 thermal scenarios. Averagely, Hybrid accelerates the execution 1.16x and 1.14x over Annealing and AIMD across 3 thermal environments.}\label{tab:speed_th}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/speed_th}}
+\end{table}
+
+
+
+
+
+%RSME of all temp table
+
+\begin{table}[h!]
+\caption{The mean and stdev of \textbf{RSME} of all temperature samples for 6 benchmarks in 3 modes of Sparta. Compared to Annealing and AIMD, Hybrid mode has less RSME to threshold temperature across all benchmarks.}\label{tab:rsme}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/rsme}}
+\end{table}
+
+
+%RSME thermal table
+
+\begin{table}[h!]
+\caption{The mean \textbf{RSME} of all temperature samples in 3 thermal scenarios. Compared to Annealing and AIMD, Hybrid mode has less RSME to threshold temperature across 3 thermal environments.  }\label{tab:rsme_th}
+\vspace{1mm}
+\centering
+\resizebox{350pt}{!}{\input{tables/rsme_th}}
+\end{table}
+
