@@ -6,13 +6,13 @@ To comprehensively evaluate the efficacy and efficiency of Sparta, we implemente
 
 \subsubsection{WTB\_Train}
 
-is the first image recognition application that we use as a benchmark trains a convolutional neural network (CNN)~\cite{ref:cnn} on the top of ResNet50~\cite{ref:resnet}. The training dataset contains animal images from a wildlife monitoring system called "Where's The Bear" (WTB)~\cite{ref:wtb}. "Where's The Bear" is an end-to-end distributed data acquisition and analytical system that automatically analyzes camera trap images collected by cameras sited at the Sedgwick Natural Reserve~\cite{ref:sedgwick} in Santa Barbara County, California. In total, there are five classes that we consider: Bear, Coyote, Deer, Bird and Empty, by which we label images for training tasks. We also up-sampled minority classes using the Keras Image Data Generator~\cite{ref:datagen}, since the class size is unbalanced due to the frequency of animal occurrences. Doing so ensures that the classification model is not biased. We resized every image in the dataset to $1920 \times 1080$, and for each class, the dataset contains 251 images used to train the CNN model. Once the training is complete, the application stores this model in hdf5 format in object storage. 
+is the first image recognition application that we use as a benchmark trains a convolutional neural network (CNN)~\cite{ref:cnn} on the top of ResNet50~\cite{ref:resnet}. The training dataset contains animal images from a wildlife monitoring system called "Where's The Bear" (WTB)~\cite{ref:wtb}. "Where's The Bear" is an end-to-end distributed data acquisition and analytical system that automatically analyzes camera trap images collected by cameras sited at the Sedgwick Natural Reserve~\cite{ref:sedgwick} in Santa Barbara County, California. In total, there are five classes that we consider: Bear, Coyote, Deer, Bird and Empty, by which we label images for training tasks. We also up-sampled minority classes using the Keras Image Data Generator~\cite{ref:datagen}, since the class size is unbalanced due to the frequency of animal occurrences. Doing so ensures that the classification model is not biased. We resized every image in the dataset to $1920 \times 1080$, and for each class, the dataset contains 60 images used to train the CNN model. Once the training is complete, the application stores this model in hdf5 format in object storage. 
 
 The WTB\_Train application has a cold start at the beginning of the execution, since it loads a neural network model and a large dataset. Once it completes loading, the entire training process has relatively consistent CPU usage and temperature. 
 
 \subsubsection{WTB\_Inf}
 
-Based on WTB\_Train, we inference the type of wildlife in camera trap pictures by the second application. It loads the trained model from WTB\_Train and, for each picture, it assigns probabilities to five classes we consider in the training dataset by Softmax function. In terms of the execution pattern, WTB\_Inf runs in short bursts compared to WTB\_Train. Therefore, the CPU usage and temperature fluctuate dramatically throughout the execution of this benchmark.
+inferences the type of wildlife in camera trap pictures based on the model trained by WTB\_Train. It loads the trained h5 model at the beginning and, for each picture, it assigns probabilities to five classes we consider in the training dataset by Softmax function. In each experiment, we assign 20 pictures for WTB\_Inf to inference. In terms of the execution pattern, WTB\_Inf runs in short bursts as opposed to WTB\_Train. Therefore, the CPU usage and temperature fluctuate dramatically throughout the execution of this benchmark.
 
 \subsubsection{MNIST}
 
@@ -41,12 +41,12 @@ To simulate the natural temperature in Sedgwick natural reserve, we create three
 
 There are two goals of scheduling by Sparta: the first is to limit the CPU temperature under the threshold; secondly, Sparta accelerates the task to the fullest extent without overheating the edge cloud devices. To validate these two objectives, we execute 6 machine learning benchmarks under 3 modes of Sparta scheduler. In each experiment, Sparta takes inputs of task program, corresponding workload dataset and a threshold temperature. To keep the comparison consistent across 3 thermal environments, we use 75\degree C as the threshold temperature for all experiments.
 
-In 3 modes of Sparta, we execute each machine learning benchmark 10 times under 3 thermal environments and report relevant metrics, both mean and standard deviation, to compare the efficacy and efficiency among Annealing, AIMD and Hybrid modes.
+In 3 modes of Sparta, we execute each machine learning benchmark repeatedly 100 times under 3 thermal environments (totally $3 \times 3 \times 6 \times 100 = 5400$ executions) and report relevant metrics, both mean and standard deviation, to compare the efficacy and efficiency among Annealing, AIMD and Hybrid modes.
 
 
 \subsection{Application Efficacy}
 
-We first evaluate the stabilization time in 6 benchmarks. 
+We first evaluate the stabilization time in six benchmarks. During each 10 consecutive executions (1 epoch) of benchmarks, we record the duration when Sparta scheduler stabilizes the CPU temperature according to the threshold. As showed in the Table \ref{tab:stab}, we report the mean and stdev of stabilization time for each benchmark in 3 modes. Hybrid mode uses less time to stabilize CPU temperature than Annealing and AIMD in all six benchmarks. Its performance is even better in WTB\_Inf benchmarks that has short burst execution pattern and volatile CPU temperature.
 
 %Stabilization table
 
@@ -66,8 +66,10 @@ We first evaluate the stabilization time in 6 benchmarks.
 \resizebox{350pt}{!}{\input{tables/stab_th}}
 \end{table}
 
-
 %Runtime table
+
+
+As Table \ref{tab:stab_th} presenting the result in the thermal dimension, Hybrid mode also uses less time to stabilize CPU temperature across all 3 thermal environments, comparing to Annealing and AIMD. Averagely, Hybrid has 43.61 seconds in stabilization, in contrast to 61.16 seconds in Annealing and 65.9 seconds in AIMD. Hybrid mode's performance is even better in hot scenario, which is the key use case for edge devices to prevent overheating in natural reserve.
 
 \begin{table}[h!]
 \caption{The mean and stdev of \textbf{execution time} in seconds for 6 machine learning benchmarks in 3 modes of Sparta. Compared to Annealing and AIMD, Hybrid mode uses less time to complete tasks across all benchmarks. }\label{tab:runtime}
@@ -85,29 +87,9 @@ We first evaluate the stabilization time in 6 benchmarks.
 \resizebox{350pt}{!}{\input{tables/runtime_th}}
 \end{table}
 
+We next empirically evaluate the execution time of six benchmarks by Sparta scheduler. In Table \ref{tab:runtime}, we report the mean and stdev of execution time for each benchmark under 3 modes. In average, the Hybrid mode completes the task of each benchmarks faster than Annealing and AIMD. Given the stdev and degree of freedom, we also run student t-test among 3 modes for each benchmark and confirm that the execution time by Hybrid is smaller than Annealing and AIMD in the significant level of 5\%. Table \ref{tab:runtime} also indicates the speedup of Hybrid over Annealing and AIMD, ranging from 1.04x to 1.32x. 
 
-
-
-%Speed-up table
-
-\begin{table}[h!]
-\caption{The \textbf{speedup} provided by Hybrid over Annealing and AIMD modes, ranging from 1.04x to 1.32x.  }\label{tab:speed}
-\vspace{1mm}
-\centering
-\resizebox{350pt}{!}{\input{tables/speed}}
-\end{table}
-
-%Speed-up thermal table
-
-\begin{table}[h!]
-\caption{The \textbf{speedup} provided by Hybrid modes in 3 thermal scenarios. Averagely, Hybrid accelerates the execution 1.16x and 1.14x over Annealing and AIMD across 3 thermal environments.}\label{tab:speed_th}
-\vspace{1mm}
-\centering
-\resizebox{350pt}{!}{\input{tables/speed_th}}
-\end{table}
-
-
-
+Table \ref{tab:runtime_th} demonstrates the average execution time in 3 thermal scenarios. Averagely, Hybrid mode completes the task in 126.61 seconds, in comparison with 146.09 seconds by Annealing and 147.46 seconds by AIMD. It also shows Hybrid mode provides 1.16x and 1.14x speedup respectively over Annealing and AIMD. These results indicate Sparta in Hybrid mode efficiently executes more workloads than Annealing and AIMD mode under the temperature threshold. 
 
 
 %RSME of all temp table
@@ -128,4 +110,11 @@ We first evaluate the stabilization time in 6 benchmarks.
 \centering
 \resizebox{350pt}{!}{\input{tables/rsme_th}}
 \end{table}
+
+
+To investigate the error from the sampling temperature and threshold, we next evaluate the Root Mean Square Error (RSME) of all temperature samples in the executions. 
+
+
+
+
 
