@@ -59,10 +59,11 @@ Rich Wolski\inst{1}}
 
 
 \begin{abstract}
-The abstract should briefly summarize the contents of the paper in
-15--250 words.
+Processors in edge cloud and IoT devices can be severely damaged from the overheating that often occurs at deployment sites. The goal of our work is to protect these onsite devices from overheating and to expedite the construction and evaluation of machine learning models on edge cloud under this condition. To enable this, we develop a heat budget-based scheduling system, Sparta, that leverages the dynamic voltage and frequency scaling (DVFS) to accurately control the CPU temperature in the execution. Sparta takes machine learning applications, datasets and a preset temperature threshold. It sets up the initial frequency of CPU based on historical data and then dynamically updates the frequency according to the applications' execution pattern and ambient temperature to safeguard edge cloud devices.
 
-\keywords{Edge Computing \and Heat Budget \and Scheduling}
+We present the design and implementation of Sparta first in this paper. We then present our empirical evaluation using multiple machine learning benchmarks, ranging from image recognition, natural language processing to sentiment analysis. The results show Sparta effectively controls the CPU temperature under the threshold and accelerates the execution of all six benchmarks in three thermal spectra by 1.04x-1.32x. 
+
+\keywords{Edge Computing \and Heat Budget \and Scheduling System}
 \end{abstract}
 %
 %
@@ -70,28 +71,23 @@ The abstract should briefly summarize the contents of the paper in
 
 
 \section{Introduction}
-\label{spt:intro}
+\label{sec:intro}
 \input{intro}
 
-\section{Background}
-\label{spt:background}
-\input{background}
+\section{Related Work}
+\label{sec:relate_work}
+\input{related_work}
 
 \section{Sparta}
-\label{spt:Sparta}
+\label{sec:Sparta}
 \input{Sparta}
 
 \section{Evaluation}
-\label{spt:eval}
+\label{sec:eval}
 \input{results}
 
-\section{Related Work}
-\label{spt:relate_work}
-\input{related_work}
-
-
 \section{Conclusion}
-\label{spt:conclusion}
+\label{sec:conclusion}
 \input{conclusion}
 
 
@@ -138,6 +134,10 @@ P. Kontschieder, M. Fiterau, A. Criminisi and S. R. Bulò, "Deep Neural Decision
 
 \bibitem{ref:nuc}
 \url{https://www.intel.com/content/www/us/en/products/boards-kits/nuc.html} Last accessed 30 Apr 2021 
+
+
+\bibitem{ref:overheating}
+\url{https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html} Last accessed 30 Apr 2021 
 
 
 \bibitem{ref_proc1}
