@@ -46,7 +46,7 @@ In 3 modes of Sparta, we execute each machine learning benchmark repeatedly 100 
 
 \subsection{Application Efficacy}
 
-We first measure the stabilization time for six benchmarks. During each of the 10 consecutive executions (1 epoch) of benchmarks, we record the duration when Sparta scheduler stabilizes the CPU temperature according to the threshold. As showed in the first part of Table \ref{tab:stab}, we report the mean and stdev of stabilization time for each benchmark in 3 modes. Hybrid mode uses less time to stabilize CPU temperature than Annealing and AIMD in all six benchmarks. It performs even better in WTB\_Inf benchmark that has short burst execution pattern and volatile CPU temperature.
+We first measure the stabilization time for six benchmarks. We define stabilization time as the elapsed time from the start to the point all CPU temperatures in the sampling time window are within $[T_s - T_d, T_s]$, where $T_s$ is the threshold and $T_d$ is a slack variable (3 \degree C by default). During each of the 10 consecutive executions (1 epoch) of benchmarks, we record the duration when Sparta scheduler stabilizes the CPU temperature according to the threshold. As showed in the first part of Table \ref{tab:stab}, we report the mean and stdev of stabilization time for each benchmark in 3 modes. Hybrid mode uses less time to stabilize CPU temperature than Annealing and AIMD in all six benchmarks. It performs even better in WTB\_Inf benchmark that has short burst execution pattern and volatile CPU temperature.
 
 %Stabilization table
 

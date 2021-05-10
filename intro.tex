@@ -11,17 +11,19 @@ However, as the edge cloud acquires exponential growth in computing power, the p
 \caption{The time series of CPU temperature in the edge cloud deployed at Sedgwick Natural Reserve from Feb. 28th, 2018 to Jun. 3rd, 2020. The x-axis is the epoch time and the y-axis is the CPU temperature in Fahrenheit. } \label{fig:time_series}
 \end{figure}
 
-In this work, we propose a heat budget-based scheduling system, Sparta, and investigate the efficacy of using it to control the CPU power dissipation process and prevent its temperature from surpassing the preset threshold. In particular, we study the relationship among CPU frequency, temperature, power dissipation and execution pattern, based on which we adopt three modes for Sparta's scheduler. Under the condition that the CPU temperatures are within the threshold, Sparta strives to harness the seasonality of ambient temperature and minimize the execution time of application.
+In this work, we propose a heat budget-based scheduling system, \textbf{Sparta}, and investigate its efficacy to control the CPU power dissipation process and prevent CPU temperature from surpassing the preset threshold. In particular, we study the relationship among CPU frequency, temperature, power dissipation and execution pattern, based on which we adopt three modes for Sparta's scheduler. Under the condition that the CPU temperatures are within the threshold, Sparta strives to harness the seasonality of ambient temperature and minimize the execution time of application.
 
 Sparta takes an application, corresponding dataset and a preset temperature threshold as inputs and automatically schedules the workload based on the online sampling temperature data. We use the system to perform a range of machine learning algorithms, including image recognition, natural language processing, decision forest and time series prediction. They comprehensively represent different execution pattern of machine learning application that we utilize in the real-world scenarios.
 
-We build three modes within Sparta's scheduler: \textbf{Annealing} leverages epsilon-greedy strategy to extrapolate the proper CPU frequency in real time; \textbf{AIMD} combines linear growth of CPU frequency when temperature is under threshold with an exponential reduction when it detects any temperature anomaly; \textbf{Hybrid} consolidates Annealing and AIMD modes to overcome their drawbacks and maximizes the efficiency of scheduler. Our results show that Sparta in Hybrid mode speeds up the execution of applications by 1.16x and 1.14x on average in three thermal environments compared to Annealing and AIMD. In the meantime, Sparta in Hybrid mode has 94.4\% of CPU temperature samples remain under the preset threshold on average across all six benchmarks. 
+We build three modes within Sparta's scheduler: \textbf{Annealing} leverages epsilon-greedy strategy to extrapolate the proper CPU frequency in real time; \textbf{AIMD} combines linear growth of CPU frequency when temperature is under threshold with an exponential reduction when it detects any temperature anomaly; \textbf{Hybrid} consolidates Annealing and AIMD modes to overcome their drawbacks and maximizes the efficiency of scheduler. Our results show that Sparta in Hybrid mode speeds up the execution of applications by \textbf{1.16x} and \textbf{1.14x} on average in three thermal environments compared to Annealing and AIMD. In the meantime, Sparta in Hybrid mode has \textbf{94.4\%} of CPU temperature samples remain under the preset threshold on average across all six benchmarks. 
 
 In summary, with this paper, we make the following contributions:
 
 \begin{itemize}
     \item We investigate the relationship between CPU frequency and sampling temperature to precisely model and manage processor power dissipation during execution;
+    \vspace{1mm}
     \item We design and implement a heat budget-based scheduling framework that protects edge cloud from overheating and potential damage;
+    \vspace{1mm}
     \item We empirically evaluate the efficacy of using Sparta to control CPU temperature and accelerate machine learning applications on six real-world benchmarks in three thermal spectra. 
 \end{itemize}
 
