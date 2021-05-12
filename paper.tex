@@ -62,29 +62,10 @@ Rich Wolski\inst{1}}
 
 
 \begin{abstract}
-Co-location of processing infrastructure and IoT devices at the edge
-is used to reduce response latency and long-haul network use for IoT applications.
-As a result, edge clouds for many applications (e.g. for agriculture, 
-ecology, and smart city deployments) must operate in remote, 
-unattended, and environmentally harsh settings, introducing new challenges.
-One key challenge is heat exposure, which can degrade the performance, 
-reliability, and longevity of electronics. For edge clouds, these problems 
-are exacerbated because they increasingly perform
-complex computations and workloads, such as machine learning to affect
-data driven actuation and control of devices and systems in the environment.
+Co-location of processing infrastructure and IoT devices at the edge is used to reduce response latency and long-haul network use for IoT applications. As a result, edge clouds for many applications (e.g. agriculture, ecology, and smart city deployments) must operate in remote, unattended, and environmentally harsh settings, introducing new challenges. One key challenge is heat exposure, which can degrade the performance, reliability, and longevity of electronics. For edge clouds, these problems are exacerbated because they increasingly perform complex computations and workloads, such as machine learning to affect data driven actuation and control of devices and systems in the environment.
 
 \vspace{0.08in}
-The goal of our work is to protect edge clouds from overheating.
-To enable this, we develop a heat-budget-based scheduling system, called Sparta, 
-which leverages dynamic frequency scaling (DFS) to adaptively control CPU temperature. 
-Sparta takes machine learning applications, datasets, and a temperature 
-threshold as input. It sets the initial frequency of the CPU based on historical data 
-and then dynamically updates it according to the applications' execution  profile
-and ambient temperature, to safeguard edge devices.
-We find that for a suite of machine learning applications and deployment
-temperatures, Sparta is able to maintain CPU temperature below threshold
-94\% of the time while facilitating improvements in execution time by 1.04x - 1.32x
-over competitive approaches.
+The goal of our work is to protect edge clouds from overheating. To enable this, we develop a heat-budget-based scheduling system, called Sparta, which leverages dynamic frequency scaling (DFS) to adaptively control CPU temperature. Sparta takes machine learning applications, datasets, and a temperature threshold as input. It sets the initial frequency of the CPU based on historical data and then dynamically updates it according to the applications' execution  profile and ambient temperature, to safeguard edge devices. We find that for a suite of machine learning applications and deployment temperatures, Sparta is able to maintain CPU temperature below threshold 94\% of the time while facilitating improvements in execution time by 1.04x - 1.32x over competitive approaches.
 
 
 \keywords{Edge Computing, Heat Budget, Scheduling System, IoT}
@@ -126,6 +107,23 @@ over competitive approaches.
 % \bibliography{ref}
 
 \begin{thebibliography}{8}
+
+\bibitem{edge}
+N. Hassan, S. Gillani, E. Ahmed, I. Yaqoob and M. Imran, "The Role of Edge Computing in Internet of Things," in IEEE Communications Magazine, vol. 56, no. 11, pp. 110-115, November 2018, doi: 10.1109/MCOM.2018.1700906.
+
+\bibitem{bonomi2012fog}
+Flavio Bonomi, Rodolfo Milito, Jiang Zhu, and Sateesh Addepalli. 2012. Fog computing and its role in the internet of things. In Proceedings of the first edition of the MCC workshop on Mobile cloud computing (MCC '12). Association for Computing Machinery, New York, NY, USA, 13–16. DOI:https://doi.org/10.1145/2342509.2342513
+
+\bibitem{cloudlets}
+Cloudlet-based Mobile Computing
+\url {http://elijah.cs.cmu.edu/} Last accessed 30 Apr 2021
+
+\bibitem{cloudlets2012satya}
+S. Simanta, G. A. Lewis, E. Morris, K. Ha and M. Satyanarayanan, "A Reference Architecture for Mobile Code Offload in Hostile Environments," 2012 Joint Working IEEE/IFIP Conference on Software Architecture and European Conference on Software Architecture, 2012, pp. 282-286, doi: 10.1109/WICSA-ECSA.212.46.
+
+\bibitem{verbelen2012cloudlets}
+Tim Verbelen, Pieter Simoens, Filip De Turck, and Bart Dhoedt. 2012. Cloudlets: bringing the cloud to the mobile user. In Proceedings of the third ACM workshop on Mobile cloud computing and services (MCS '12). Association for Computing Machinery, New York, NY, USA, 29–36. DOI:https://doi.org/10.1145/2307849.2307858
+
 
 
 \bibitem{ref:cnn}
