@@ -38,7 +38,7 @@
 \begin{document}
 %
 
-\title{Sparta: A Heat Budget-based Scheduling Framework on IoT Edge Systems}
+\title{Sparta: A Heat-Budget-based Scheduling Framework on IoT Edge Systems}
 
 \titlerunning{Sparta}
 %
@@ -65,7 +65,7 @@ Rich Wolski\inst{1}}
 Co-location of processing infrastructure and IoT devices at the edge is used to reduce response latency and long-haul network use for IoT applications. As a result, edge clouds for many applications (e.g. agriculture, ecology, and smart city deployments) must operate in remote, unattended, and environmentally harsh settings, introducing new challenges. One key challenge is heat exposure, which can degrade the performance, reliability, and longevity of electronics. For edge clouds, these problems are exacerbated because they increasingly perform complex computations and workloads, such as machine learning to affect data driven actuation and control of devices and systems in the environment.
 
 \vspace{0.08in}
-The goal of our work is to protect edge clouds from overheating. To enable this, we develop a heat-budget-based scheduling system, called Sparta, which leverages dynamic voltage and frequency scaling (DVFS) to adaptively control CPU temperature. Sparta takes machine learning applications, datasets, and a temperature threshold as input. It sets the initial frequency of the CPU based on historical data and then dynamically updates it according to the applications' execution  profile and ambient temperature, to safeguard edge devices. We find that for a suite of machine learning applications and deployment temperatures, Sparta is able to maintain CPU temperature below threshold 94\% of the time while facilitating improvements in execution time by 1.04x - 1.32x over competitive approaches.
+The goal of our work is to protect edge clouds from overheating. To enable this, we develop a heat-budget-based scheduling system, called Sparta, which leverages dynamic voltage and frequency scaling (DVFS) to adaptively control CPU temperature. Sparta takes machine learning applications, datasets, and a temperature threshold as input. It sets the initial frequency of the CPU based on historical data and then dynamically updates it, according to the applications' execution  profile and ambient temperature, to safeguard edge devices. We find that for a suite of machine learning applications and deployment temperatures, Sparta is able to maintain CPU temperature below threshold 94\% of the time while facilitating improvements in execution time by 1.04x - 1.32x over competitive approaches.
 
 
 \keywords{Edge Computing, Heat Budget, Scheduling System, IoT}
@@ -124,19 +124,11 @@ S. Simanta, G. A. Lewis, E. Morris, K. Ha and M. Satyanarayanan, "A Reference Ar
 \bibitem{verbelen2012cloudlets}
 Tim Verbelen, Pieter Simoens, Filip De Turck, and Bart Dhoedt. 2012. Cloudlets: bringing the cloud to the mobile user. In Proceedings of the third ACM workshop on Mobile cloud computing and services (MCS '12). Association for Computing Machinery, New York, NY, USA, 29–36. DOI:https://doi.org/10.1145/2307849.2307858
 
-
-
-\bibitem{ref:cnn}
-Yann LeCun and Yoshua Bengio. Convolutional networks for images, speech, and time series. The handbook of brain theory and neural networks. MIT Press, Cambridge, MA, USA, pp. 255–258, 1998.
-
-\bibitem{ref:resnet}
-He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. "Deep residual learning for image recognition." In Proceedings of the IEEE conference on computer vision and pattern recognition, pp. 770-778. 2016.
-
-\bibitem{ref:wtb}
-A. R. Elias, N. Golubovic, C. Krintz and R. Wolski, "Where's the Bear? - Automating Wildlife Image Processing Using IoT and Edge Cloud Systems," 2017 IEEE/ACM Second International Conference on Internet-of-Things Design and Implementation (IoTDI), pp. 247-258, 2017.
-
 \bibitem{ref:sedgwick}
 Sedgwick Natural Reserve Homepage \url{https://sedgwick.nrs.ucsb.edu} Last accessed 30 Apr 2021
+
+\bibitem{ref:overheating}
+\url{https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html} Last accessed 30 Apr 2021 
 
 
 \bibitem{ref:Liu2007dvfs}
@@ -146,8 +138,8 @@ Liu, Yongpan, Huazhong Yang, Robert P. Dick, Hui Wang, and Li Shang. "Thermal vs
 \bibitem{ref:Wang2010dvfs}
 Wang, Lizhe, Gregor Von Laszewski, Jay Dayal, and Fugang Wang. "Towards energy aware scheduling for precedence constrained parallel tasks in a cluster with DVFS." In 2010 10th IEEE/ACM International Conference on Cluster, Cloud and Grid Computing, pp. 368-377. IEEE, 2010.
 
-\bibitem{ref:Deng2012dvfs}
-Deng, Qingyuan, David Meisner, Abhishek Bhattacharjee, Thomas F. Wenisch, and Ricardo Bianchini. "CoScale: Coordinating CPU and memory system DVFS in server systems." In 2012 45th annual IEEE/ACM international symposium on microarchitecture, pp. 143-154. IEEE, 2012.
+% \bibitem{ref:Deng2012dvfs}
+% Deng, Qingyuan, David Meisner, Abhishek Bhattacharjee, Thomas F. Wenisch, and Ricardo Bianchini. "CoScale: Coordinating CPU and memory system DVFS in server systems." In 2012 45th annual IEEE/ACM international symposium on microarchitecture, pp. 143-154. IEEE, 2012.
 
 
 \bibitem{ref:Wu2013dvfs}
@@ -160,11 +152,25 @@ Pages 141-147,
 ISSN 0167-739X,
 https://doi.org/10.1016/j.future.2013.06.009.
 
+\bibitem{ref:sensors}
+\url{https://github.com/lm-sensors/lm-sensors} Last accessed 30 Apr 2021 
+
+\bibitem{ref:tensorflow}
+\url{https://www.tensorflow.org/} Last accessed 30 Apr 2021 
 
 
+\bibitem{ref:cnn}
+Yann LeCun and Yoshua Bengio. Convolutional networks for images, speech, and time series. The handbook of brain theory and neural networks. MIT Press, Cambridge, MA, USA, pp. 255–258, 1998.
+
+\bibitem{ref:resnet}
+He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. "Deep residual learning for image recognition." In Proceedings of the IEEE conference on computer vision and pattern recognition, pp. 770-778. 2016.
+
+\bibitem{ref:wtb}
+A. R. Elias, N. Golubovic, C. Krintz and R. Wolski, "Where's the Bear? - Automating Wildlife Image Processing Using IoT and Edge Cloud Systems," 2017 IEEE/ACM Second International Conference on Internet-of-Things Design and Implementation (IoTDI), pp. 247-258, 2017.
 
 \bibitem{ref:datagen}
 Keras Image Data Generator \url{https://keras.io/preprocessing/image/\#imagedatagenerator-class} Last accessed 30 Apr 2021
+
 
 
 \bibitem{ref:MNIST}
@@ -183,16 +189,11 @@ P. Kontschieder, M. Fiterau, A. Criminisi and S. R. Bulò, "Deep Neural Decision
 \url{https://www.intel.com/content/www/us/en/products/boards-kits/nuc.html} Last accessed 30 Apr 2021 
 
 
-\bibitem{ref:overheating}
-\url{https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html} Last accessed 30 Apr 2021 
 
 
-\bibitem{ref:sensors}
-\url{https://github.com/lm-sensors/lm-sensors} Last accessed 30 Apr 2021 
 
 
-\bibitem{ref:tensorflow}
-\url{https://www.tensorflow.org/} Last accessed 30 Apr 2021 
+
 
 
 \bibitem{ref:computational_sprint}
