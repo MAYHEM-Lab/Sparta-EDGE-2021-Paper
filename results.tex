@@ -1,4 +1,4 @@
-In this section, we empirically evaluate Sparta's performance in a series of experiments on six benchmarks, ranging from image recognition, natural language processing to random forest and time series prediction, which are implemented based on Tensorflow and executed through Sparta's actuator interface. We first overview the machine learning benchmarks that we consider and our experimental methodology. We then present our results.
+Based on the fact that most resource-demanding programs on edge cloud in our Sedgwick Natural Reserve settings are machine learning applications, in this section, we empirically evaluate Sparta's performance in a series of experiments on six benchmarks, ranging from image recognition, natural language processing to random forest and time series prediction, which are implemented based on Tensorflow and executed through Sparta's actuator interface. We first overview the machine learning benchmarks that we consider and our experimental methodology. We then present our results.
 
 \subsection{Machine Learning Benchmarks}
 
@@ -8,7 +8,7 @@ To comprehensively evaluate the efficacy and efficiency of Sparta, we implemente
 
 is an image recognition application that we use as a benchmark to train a convolutional neural network (CNN)~\cite{ref:cnn} based on ResNet50~\cite{ref:resnet}. The training dataset contains animal images from a wildlife monitoring system called "Where's The Bear" (WTB)~\cite{ref:wtb}. "Where's The Bear" is an end-to-end distributed data acquisition and analytical system that automatically analyzes camera trap images collected by cameras sited at the Sedgwick Natural Reserve~\cite{ref:sedgwick} in Santa Barbara County, California. In total, there are five classes that we consider: Bear, Coyote, Deer, Bird, and Empty, by which we label images for training tasks. We also up-sampled minority classes using the Keras Image Data Generator~\cite{ref:datagen}, since the class size is unbalanced due to the frequency of animal occurrences. Doing so ensures that the classification model is not biased. We resized every image in the dataset to $1920 \times 1080$, and for each class, the dataset contains 60 images used to train the CNN model. Once the training is complete, the application stores this model in hdf5 format in object storage. 
 
-The WTB\_Train application has a cold start at the beginning of the execution since it loads a pre-trained neural network model and a large dataset. Once it completes loading, the entire training process has relatively consistent CPU usage and temperature. 
+The WTB\_Train application has a cold start at the beginning of the execution since it loads a pre-trained neural network model and training datasets. Once it completes loading, the entire training process has relatively consistent CPU usage and temperature. 
 
 \subsubsection{WTB\_Inf}
 

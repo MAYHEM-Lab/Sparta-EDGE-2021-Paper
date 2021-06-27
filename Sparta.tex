@@ -18,8 +18,7 @@ The control plane manages the CPU power and temperature. In the design phase, we
 \end{figure}
 
 
-The decision plane
- determines the CPU frequency based on historical and real-time temperature data throughout the execution. To provide the historical dataset, on which decision plane decides the initial CPU frequency, we collect CPU temperature and frequency data from a multi-threaded matrix multiplication (MATMUL) benchmark that simulates the underlying operations in machine learning applications. 
+The decision plane determines the CPU frequency based on historical and real-time temperature data throughout the execution. To provide the historical dataset, on which decision plane decides the initial CPU frequency, we collect CPU temperature and frequency data from a multi-threaded matrix multiplication (MATMUL) benchmark that simulates the underlying operations in machine learning applications. 
 
 We gather the data in the ambient temperature ranging from 2.6 \degree C to 43.8 \degree C to cover different thermal environments. In the experiment, we found the sequence of CPU frequency and maximum temperature in a time window demonstrate a better linear relationship than the sequence of all temperature, because of its inherent oscillating feature. To verify the correlation between MATMUL and machine learning applications, we collect the same data from an image recognition application written in Tensorflow~\cite{ref:tensorflow}. As depicted in Figure~\ref{fig:mat-vs-tf}, we found the correlated linear relationship between the CPU frequency and logarithmic delta temperature defined as $log(T_{max} - T_i)$, where $T_{max}$ is the maximum temperature sample in the time window and $T_i$ is the starting CPU temperature in idle state. 
  
